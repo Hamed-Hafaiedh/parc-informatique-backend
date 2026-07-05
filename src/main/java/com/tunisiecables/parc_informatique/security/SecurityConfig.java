@@ -90,9 +90,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Autoriser React
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
-
+        // Autoriser React vite
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
         // Méthodes HTTP autorisées
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
