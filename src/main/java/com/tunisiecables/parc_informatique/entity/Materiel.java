@@ -1,5 +1,7 @@
 package com.tunisiecables.parc_informatique.entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.tunisiecables.parc_informatique.enums.StatutMateriel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,9 +11,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "materiels")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@Builder
-public class Materiel {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_materiel", discriminatorType = DiscriminatorType.STRING)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "typeMateriel")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Ordinateur.class, name = "ORDINATEUR"),
+        @JsonSubTypes.Type(value = Imprimante.class, name = "IMPRIMANTE")
+})
+@Getter @Setter @NoArgsConstructor
+public abstract class Materiel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,24 +37,10 @@ public class Materiel {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
     private StatutMateriel statut = StatutMateriel.EN_STOCK;
 
     @Column(length = 255)
     private String description;
-
-    // ===== Nouveaux champs =====
-
-    @Column(length = 50)
-    private String systemeExploitation;
-
-    @Column(length = 50)
-    private String processeur;
-
-    @Builder.Default
-    private Boolean ssdVerifie = false;
-
-    // ===== Relations existantes =====
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")

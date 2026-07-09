@@ -27,17 +27,11 @@ public class MaterielService {
     }
 
     public Materiel update(Long id, Materiel materielDetails) {
-        Materiel materiel = findById(id);
-
-        materiel.setNumeroDeSerie(materielDetails.getNumeroDeSerie());
-        materiel.setMarque(materielDetails.getMarque());
-        materiel.setModele(materielDetails.getModele());
-        materiel.setStatut(materielDetails.getStatut());
-        materiel.setDescription(materielDetails.getDescription());
-        materiel.setCategorie(materielDetails.getCategorie());
-        materiel.setSite(materielDetails.getSite());
-
-        return materielRepository.save(materiel);
+        if (!materielRepository.existsById(id)) {
+            throw new RuntimeException("Materiel introuvable avec id : " + id);
+        }
+        materielDetails.setId(id);
+        return materielRepository.save(materielDetails);
     }
 
     public void delete(Long id) {
