@@ -1,5 +1,6 @@
 package com.tunisiecables.parc_informatique.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.tunisiecables.parc_informatique.enums.StatutMateriel;
@@ -54,9 +55,11 @@ public abstract class Materiel {
     @JoinColumn(name = "achat_id")
     private Achat achat;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "materiel")
     private List<Affectation> affectations;
 
+    @JsonIgnore 
     @OneToMany(mappedBy = "materiel")
     private List<Maintenance> maintenances;
 

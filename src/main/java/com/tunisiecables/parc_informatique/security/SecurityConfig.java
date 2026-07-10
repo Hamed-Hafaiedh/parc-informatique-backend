@@ -61,6 +61,10 @@ public class SecurityConfig {
                         // Routes publiques
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // Route technicien accessible à Admin + Technicien (AVANT la regle generale ci-dessous)
+                        .requestMatchers("/api/utilisateurs/techniciens")
+                        .hasAnyRole("ADMIN", "TECHNICIEN")
+
                         // Routes Admin seulement
                         .requestMatchers(
                                 "/api/categories/**",
