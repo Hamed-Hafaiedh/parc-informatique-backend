@@ -1,5 +1,6 @@
 package com.tunisiecables.parc_informatique.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Employe {
     @JoinColumn(name = "site_id")
     private Site site;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
