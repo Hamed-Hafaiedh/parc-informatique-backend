@@ -37,6 +37,9 @@ public class Affectation {
     @JoinColumn(name = "created_by")
     private User createdBy;
 
+    @Column(length = 150)
+    private String groupeUtilisateurs;
+
     public void cloturer() {
         this.statut = StatutAffectation.CLOTUREE;
         this.dateFin = LocalDate.now();

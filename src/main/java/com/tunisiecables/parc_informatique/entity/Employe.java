@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity @Table(name = "employes")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Employe {
@@ -43,4 +45,9 @@ public class Employe {
     public String getNomComplet() {
         return prenom + " " + nom;
     }
+
+    @Column(nullable = false)
+    private boolean archive = false;
+
+    private LocalDate dateArchivage;
 }

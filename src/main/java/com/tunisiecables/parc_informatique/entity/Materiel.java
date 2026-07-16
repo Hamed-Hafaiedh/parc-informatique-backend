@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -66,4 +67,9 @@ public abstract class Materiel {
     @ManyToOne
     @JoinColumn(name = "charte_id")
     private CharteInformatique charteInformatique;
+
+    @Column(nullable = false)
+    private boolean archive = false;
+
+    private LocalDate dateArchivage;
 }
